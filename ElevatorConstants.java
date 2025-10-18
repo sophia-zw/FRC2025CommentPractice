@@ -17,6 +17,7 @@ import com.ctre.phoenix6.signals.StaticFeedforwardSignValue; //https://api.ctr-e
 
 
 public class ElevatorConstants {
+    // this is defining some specific positions the elevator goes to
     public enum ElevatorPosition {
         START(0.0),
         HOLD(0.0),
@@ -38,9 +39,9 @@ public class ElevatorConstants {
             this.value = value;
          }
     }
-
+    //yeah i have no idea what elevator tolerance is
     public static final double elevatorTolerance = 0.2;
-
+    //motor config so that it runs how we want it for the first elevator, or maybe its the first motor in the elevator
     public static final TalonFXConfiguration elev1Config = new TalonFXConfiguration()
     .withCurrentLimits(new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
@@ -64,7 +65,7 @@ public class ElevatorConstants {
             .withKP(3.89255778512)
             .withKI(0.0)
             .withKD(0.2));
-
+    // defining the config for the second motor in the elevator maybe?
     public static final TalonFXConfiguration elev2Config = new TalonFXConfiguration()
     .withCurrentLimits(new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)

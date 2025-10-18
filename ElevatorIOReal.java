@@ -18,11 +18,13 @@ import frc.robot.Constants.Ports; //N/A
 import frc.robot.subsystems.elevator.ElevatorConstants.ElevatorPosition; //N/A
 
 public class ElevatorIOReal implements ElevatorIO{
+    //defining motors and seuch
     private final TalonFX elevMotor1;
     private final TalonFX elevMotor2;
+    //i have no clue what a follower or a motionmagicvoltage is, maybe its the gyroscope?
     private final Follower elevFollower;
     private MotionMagicVoltage position = new MotionMagicVoltage(0);
-
+    //defining signals for voltage, position, velocity, and the current
     private StatusSignal<Voltage> elevVol;
     private StatusSignal<Angle> elevPos;
     private StatusSignal<AngularVelocity> elevVel;
