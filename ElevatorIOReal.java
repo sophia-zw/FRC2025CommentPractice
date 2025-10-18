@@ -29,12 +29,13 @@ public class ElevatorIOReal implements ElevatorIO{
     private StatusSignal<Angle> elevPos;
     private StatusSignal<AngularVelocity> elevVel;
     private StatusSignal<Current> elevCur;
-
+    //constructor
     public ElevatorIOReal(){
+        //initializing the motors as talonFX motors, and telling them what ports they are in
         elevMotor1 = new TalonFX(Ports.ELEVATOR_BOTTOM);
         elevMotor2 = new TalonFX(Ports.ELEVATOR_TOP);
         elevFollower = new Follower(elevMotor1.getDeviceID(), false);
-
+        //initializing the status signals 
         elevVol = elevMotor1.getMotorVoltage();
         elevPos = elevMotor1.getPosition(); // Is actually inches
         elevVel = elevMotor1.getVelocity(); // Is actually inches/sec
@@ -48,7 +49,7 @@ public class ElevatorIOReal implements ElevatorIO{
         
         elevMotor2.setControl(elevFollower);
     }
-    
+    //this updates the inputs on this side to keep elevator.java and this in sync
     @Override
     public void updateInputs(ElevatorIOInputs inputs){
         var elev1Status = BaseStatusSignal.refreshAll(elevVol, elevPos, elevVel, elevCur);
@@ -60,22 +61,22 @@ public class ElevatorIOReal implements ElevatorIO{
         inputs.elevVoltage = elevVol.getValue().in(Volts);
         inputs.elevCurrent = elevCur.getValue().in(Amps);
     }
-
+    //yeah so no idea what this does, i think this puts the motor into a closed loop to spin until the elevator gets to the specific position?
     @Override
     public void setElevatorClosedLoop(double pos){ 
         elevMotor1.setControl(position.withPosition(pos)); 
     }
-
+    //this just gives the motor the voltage and has it spin
     @Override
     public void setElevatorOpenLoop(double volts){
         elevMotor1.setVoltage(volts);
     }
-
+    //this tells the motor to spin until the specific start value so it resets the motor
     @Override
     public void resetState() {
         elevMotor1.setPosition(ElevatorPosition.START.value); 
     }
-
+    //this stops all the motors
     @Override
     public void stopElevator(){
         elevMotor1.stopMotor();
