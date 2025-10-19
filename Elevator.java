@@ -23,17 +23,17 @@ public class Elevator extends SubsystemBase {
 
     public Elevator(ElevatorIO io){
         elevatorIO = io;
-        elev1DisconnectedAlert = new Alert("Disconnected elevator motor 1.", AlertType.kError); 
+        elev1DisconnectedAlert = new Alert("Disconnected elevator motor 1.", AlertType.kError); //Initializes 2 alerts for if the motor disconnects, kError denotes its a high priority alert
         elev2DisconnectedAlert = new Alert("Disconnected elevator motor 2.", AlertType.kError); 
         targetPosition = ElevatorPosition.START;
 
-        sysId = new SysIdRoutine(
-            new SysIdRoutine.Config(
+        sysId = new SysIdRoutine( //initializing SysIdRoutine, testings and logging how individual mechanisms respond to voltage inputs
+            new SysIdRoutine.Config( //part of the SysIdRoutine test routine that doesn't require hardware
                     Volts.per(Second).of(0.25),
                     Volts.of(2),
                     Seconds.of(6),
                     state -> Logger.recordOutput("Elevator/SysIdState", state.toString())),
-            new SysIdRoutine.Mechanism(
+            new SysIdRoutine.Mechanism 
                     volts -> runCharacterization(volts.in(Volts)), null, this));
     }
 
@@ -101,3 +101,4 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
