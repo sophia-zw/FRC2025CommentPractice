@@ -29,16 +29,16 @@ public class Elevator extends SubsystemBase {
 
         sysId = new SysIdRoutine( //initializing SysIdRoutine, testings and logging how individual mechanisms respond to voltage inputs
             new SysIdRoutine.Config( //part of the SysIdRoutine test routine that doesn't require hardware
-                    Volts.per(Second).of(0.25),
-                    Volts.of(2),
-                    Seconds.of(6),
-                    state -> Logger.recordOutput("Elevator/SysIdState", state.toString())),
-            new SysIdRoutine.Mechanism 
+                    Volts.per(Second).of(0.25), // how fast the voltage increases per second 
+                    Volts.of(2), //Step voltage output used in test
+                    Seconds.of(6), //Safety Time out, automatically stops mechanism after 6 seconds.
+                    state -> Logger.recordOutput("Elevator/SysIdState", state.toString())), // logs current SysID State for debugging.
+            new SysIdRoutine.Mechanism // describes how to interact with a specific mechanism
                     volts -> runCharacterization(volts.in(Volts)), null, this));
     }
 
     @Override
-    public void periodic(){
+    public void periodic(){ //peri
         elevatorIO.updateInputs(inputs);
         Logger.processInputs("Elevator", inputs);
 
@@ -101,4 +101,5 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
