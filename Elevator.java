@@ -38,8 +38,8 @@ public class Elevator extends SubsystemBase {
     }
 
     @Override
-    public void periodic(){ //peri
-        elevatorIO.updateInputs(inputs);
+    public void periodic(){ //periodic function that runs at timed intervals. Checks for disfunctionalities and logs the status of the Robot.
+        elevatorIO.updateInputs(inputs); //
         Logger.processInputs("Elevator", inputs);
 
         elev1DisconnectedAlert.set(!inputs.elev1Connected);
@@ -101,5 +101,6 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
