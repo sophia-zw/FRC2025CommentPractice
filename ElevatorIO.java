@@ -2,7 +2,7 @@ package frc.robot.subsystems.elevator; //N/A
 
 import org.littletonrobotics.junction.AutoLog; //N/A
 
-public interface ElevatorIO{
+public interface ElevatorIO{ //This entire class is just an interface for ElevatorIOReal to implement. Not much to explain, any class that implemenets this has to use the methods defined (kind of like extending an abstract class withut defining the abstract methods).
     @AutoLog
     public static class ElevatorIOInputs{
         public boolean elev1Connected = false;
@@ -26,3 +26,4 @@ public interface ElevatorIO{
 	public default void resetState(){} 
 }
    
+
