@@ -39,10 +39,10 @@ public class Elevator extends SubsystemBase {
 
     @Override
     public void periodic(){ //periodic function that runs at timed intervals. Checks for disfunctionalities and logs the status of the Robot.
-        elevatorIO.updateInputs(inputs); //
-        Logger.processInputs("Elevator", inputs);
+        elevatorIO.updateInputs(inputs); //Calls method with the arguments "inputs". Method refreshes alot of position and voltage variables and sets them to what they currently are/ the c
+        Logger.processInputs("Elevator", inputs); //logs all the current data in case in need of use later.
 
-        elev1DisconnectedAlert.set(!inputs.elev1Connected);
+        elev1DisconnectedAlert.set(!inputs.elev1Connected); //These 2 lines set the alert status to wether the elevator motors are disconnected or not.
         elev2DisconnectedAlert.set(!inputs.elev2Connected);
     }
 
@@ -101,6 +101,7 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
