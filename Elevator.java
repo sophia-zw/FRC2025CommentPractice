@@ -73,12 +73,14 @@ public class Elevator extends SubsystemBase {
         return inputs.elevPositionInches;
     }
 
+    //returns False if there is any current commands occuring with the Elevator and returns True if there isnt .
     @AutoLogOutput
     public boolean isFree() {
         return this.getCurrentCommand() == null;
     }
 
     @AutoLogOutput
+    //If the current command is empty(null) "NONE" is returned, otherwise the name of the command is returned
     public String current() {
         return this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "NONE";
     }
@@ -106,6 +108,7 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
