@@ -46,11 +46,13 @@ public class Elevator extends SubsystemBase {
         elev2DisconnectedAlert.set(!inputs.elev2Connected);
     }
 
-    public void setPosition(ElevatorPosition height){
+    //Moves Elevator to Location using a closed loop(adjusts based on feedback to minimize error)
+    public void setPosition(ElevatorPosition height){ 
         elevatorIO.setElevatorClosedLoop(height.value);
         targetPosition = height; 
     }
 
+    //Just returns if Elevators current position matches the target Position.
     @AutoLogOutput
     public boolean isAtPosition() {
         return isAtPosition(targetPosition);
@@ -101,6 +103,7 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
