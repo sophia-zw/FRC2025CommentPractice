@@ -105,11 +105,13 @@ public class Elevator extends SubsystemBase {
         return run(() -> runCharacterization(0.0)).withTimeout(1.0).andThen(sysId.dynamic(direction));
     }
 
+    //Resets the position of the Elevator to its start position.
     public void resetState() {
         elevatorIO.resetState();
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
