@@ -58,14 +58,17 @@ public class Elevator extends SubsystemBase {
         return isAtPosition(targetPosition);
     }
 
+    //Given a Position, returns whether the elevator has reached that position if its margin of error is less than the elevator tolerance constant
     public boolean isAtPosition(ElevatorPosition position) {
         return Math.abs(inputs.elevPositionInches - position.value) < ElevatorConstants.elevatorTolerance;
     }
 
+    //returns the target position of the Elevator
     public ElevatorPosition getTargetPosition(){
         return targetPosition;
     }
-
+    
+    //returns the current Height of the Elevator
     public double getHeight(){
         return inputs.elevPositionInches;
     }
@@ -103,6 +106,7 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
