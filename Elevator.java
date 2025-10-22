@@ -85,10 +85,12 @@ public class Elevator extends SubsystemBase {
         return this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "NONE";
     }
 
+    //Stops the motor moving the elevator
     public void stopElevator(){  
         elevatorIO.stopElevator();
     }
 
+    //Sets voltage to the motor, I'm assuming this function is used to test the Elevator out with a certain voltage as its an open loop so it doesnt recieve and feed back and adjust.
     public void runCharacterization(double volts) {
         elevatorIO.setElevatorOpenLoop(volts);
     }
@@ -108,6 +110,7 @@ public class Elevator extends SubsystemBase {
         setPosition(ElevatorPosition.START);
     }
 }
+
 
 
 
