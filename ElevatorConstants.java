@@ -17,8 +17,8 @@ import com.ctre.phoenix6.signals.StaticFeedforwardSignValue; //https://api.ctr-e
 
 
 public class ElevatorConstants {
-    public enum ElevatorPosition {
-        START(0.0),
+public enum ElevatorPosition { // Just a bunch of constants related to elevator positioning, timing sensing, etc.
+        START(0.0), 
         HOLD(0.0),
         ROTATE(19.5),
         LOAD(15.77724609375),
@@ -41,7 +41,7 @@ public class ElevatorConstants {
 
     public static final double elevatorTolerance = 0.2;
 
-    public static final TalonFXConfiguration elev1Config = new TalonFXConfiguration()
+    public static final TalonFXConfiguration elev1Config = new TalonFXConfiguration() //initalizing talonFX motr
     .withCurrentLimits(new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
             .withStatorCurrentLimit(80))
@@ -78,4 +78,5 @@ public class ElevatorConstants {
 
 
     
+
 
