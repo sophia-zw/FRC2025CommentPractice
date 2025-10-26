@@ -5,7 +5,7 @@ import org.littletonrobotics.junction.AutoLog; //N/A
 public interface ElevatorIO{
     @AutoLog
 
-    //defining some specific inputs that we can change as needed
+    //defining some specific inputs that we can change as needed, like position in inches, velocity, voltage and current, wait, whats the difference between voltage and current?
     public static class ElevatorIOInputs{
         public boolean elev1Connected = false;
         public boolean elev2Connected = false;

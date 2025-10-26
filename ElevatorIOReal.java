@@ -18,13 +18,13 @@ import frc.robot.Constants.Ports; //N/A
 import frc.robot.subsystems.elevator.ElevatorConstants.ElevatorPosition; //N/A
 
 public class ElevatorIOReal implements ElevatorIO{
-    //defining motors and seuch
+    //defining motors and such (fixed a very important typo)
     private final TalonFX elevMotor1;
     private final TalonFX elevMotor2;
     //i have no clue what a follower or a motionmagicvoltage is, maybe its the gyroscope?
     private final Follower elevFollower;
     private MotionMagicVoltage position = new MotionMagicVoltage(0);
-    //defining signals for voltage, position, velocity, and the current
+    //defining signals for voltage, position, velocity, and the current, these are important for the elevator to know where it is, and other stuff
     private StatusSignal<Voltage> elevVol;
     private StatusSignal<Angle> elevPos;
     private StatusSignal<AngularVelocity> elevVel;
@@ -61,22 +61,22 @@ public class ElevatorIOReal implements ElevatorIO{
         inputs.elevVoltage = elevVol.getValue().in(Volts);
         inputs.elevCurrent = elevCur.getValue().in(Amps);
     }
-    //yeah so no idea what this does, i think this puts the motor into a closed loop to spin until the elevator gets to the specific position?
+    //we use a closed loop here so we get info back as we run, so we can adjust and account for problems as we go, I would call this more safe
     @Override
     public void setElevatorClosedLoop(double pos){ 
         elevMotor1.setControl(position.withPosition(pos)); 
     }
-    //this just gives the motor the voltage and has it spin
+    //this just gives the motor the voltage and has it spin, this gets no info back, so it can't account for issues
     @Override
     public void setElevatorOpenLoop(double volts){
         elevMotor1.setVoltage(volts);
     }
-    //this tells the motor to spin until the specific start value so it resets the motor
+    //this tells the motor to spin until the specific start value so it resets the motor back to where the elevator is back at the start, which i think is the bottom
     @Override
     public void resetState() {
         elevMotor1.setPosition(ElevatorPosition.START.value); 
     }
-    //this stops all the motors
+    //this stops motor 1, stopping the elevator
     @Override
     public void stopElevator(){
         elevMotor1.stopMotor();

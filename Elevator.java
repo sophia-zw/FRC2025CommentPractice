@@ -33,7 +33,7 @@ public class Elevator extends SubsystemBase {
         elev2DisconnectedAlert = new Alert("Disconnected elevator motor 2.", AlertType.kError); 
         //by default be at the start position
         targetPosition = ElevatorPosition.START;
-        //this is just for tests and stuff i think
+        //this is just for tests and stuff i think, Tbh not fully certain
         sysId = new SysIdRoutine(
             new SysIdRoutine.Config(
                     Volts.per(Second).of(0.25),
@@ -52,12 +52,12 @@ public class Elevator extends SubsystemBase {
         elev1DisconnectedAlert.set(!inputs.elev1Connected);
         elev2DisconnectedAlert.set(!inputs.elev2Connected);
     }
-    //this sets the position of the elevator
+    //this sets the target position of the elevator, putting the motor into a closed loop, and telling itself that the defined position is where it wants to go
     public void setPosition(ElevatorPosition height){
         elevatorIO.setElevatorClosedLoop(height.value);
         targetPosition = height; 
     }
-    //checks if the elevator is at the target position
+    //checks if the elevator is at the target position, basically saying, "did i get where i wanted to go?"
     @AutoLogOutput
     public boolean isAtPosition() {
         return isAtPosition(targetPosition);
@@ -70,7 +70,7 @@ public class Elevator extends SubsystemBase {
     public ElevatorPosition getTargetPosition(){
         return targetPosition;
     }
-    //returns the current elevator height in inches
+    //returns the current elevator height in inches, because FREEEDOM UNITS WOOOO, yes, this was necessary 
     public double getHeight(){
         return inputs.elevPositionInches;
     }
@@ -84,11 +84,11 @@ public class Elevator extends SubsystemBase {
     public String current() {
         return this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "NONE";
     }
-    //this stops the elevator, quite self explanatory
+    //this stops the elevator, quite self explanatory, it uses elevator io to do this
     public void stopElevator(){  
         elevatorIO.stopElevator();
     }
-    //Uhhhhhh, i think this is do with like testing something
+    //Uhhhhhh, i think this is do with testing, I think a characterization is just like a certain scenario it wants to use to test.
     public void runCharacterization(double volts) {
         elevatorIO.setElevatorOpenLoop(volts);
     }
@@ -102,7 +102,7 @@ public class Elevator extends SubsystemBase {
     public Command sysIdDynamic(SysIdRoutine.Direction direction) {
         return run(() -> runCharacterization(0.0)).withTimeout(1.0).andThen(sysId.dynamic(direction));
     }
-    //this resets the state and sets the position back to the bottom
+    //this resets the state and sets the position back to the bottom, this uses the IO's reset state to reset the motor too.
     public void resetState() {
         elevatorIO.resetState();
         setPosition(ElevatorPosition.START);
